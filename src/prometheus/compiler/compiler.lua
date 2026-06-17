@@ -25,6 +25,7 @@ function Compiler:new()
     local compiler = {
         blocks = {};
         registers = {};
+		fakeRegisters = {};
         activeBlock = nil;
         registersForVar = {};
         usedRegisters = 0;
@@ -318,6 +319,22 @@ function Compiler:compile(ast)
             astItems[ids[5]], astItems[ids[6]], astItems[ids[7]],
         })};
     }, psc), newGlobalScope);
+end
+
+function Compiler:getFakeRegister()
+    if #self.fakeRegisters == 0 then
+
+        for i = 1,8 do
+            table.insert(
+                self.fakeRegisters,
+                self:allocRegister(false)
+            )
+        end
+    end
+
+    return self.fakeRegisters[
+        math.random(#self.fakeRegisters)
+    ]
 end
 
 function Compiler:getCreateClosureVar(argCount)
