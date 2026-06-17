@@ -109,7 +109,7 @@ return function(Compiler)
         end
 
         if id < MAX_REGS then
-			local realId = self:registerMap[id] or id
+			local realId = self.registerMap[id] or id
             local vid = self:getRegisterVarId(realId);
             scope:addReferenceToHigherScope(self.containerFuncScope, vid);
             return Ast.VariableExpression(self.containerFuncScope, vid);
