@@ -99,17 +99,17 @@ return function(Compiler)
         return varId;
     end
 	
-    self.registerMap = {}
+    self:registerMap = {}
 	local regs = {}
 
     for i = 1, MAX_REGS do
         regs[i] = i
     end
 
-    util.shuffle(regs)
+    util:shuffle(regs)
 
     for i = 1, MAX_REGS do
-        self.registerMap[i] = regs[i]
+        self:registerMap[i] = regs[i]
     end
     function Compiler:register(scope, id)
         if id == self.POS_REGISTER then
@@ -121,7 +121,7 @@ return function(Compiler)
         end
 
         if id < MAX_REGS then
-			local realId = self.registerMap[id] or id
+			local realId = self:registerMap[id] or id
             local vid = self:getRegisterVarId(realId);
             scope:addReferenceToHigherScope(self.containerFuncScope, vid);
             return Ast.VariableExpression(self.containerFuncScope, vid);
