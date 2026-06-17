@@ -31,6 +31,7 @@ function Compiler:new()
         usedRegisters = 0;
         maxUsedRegister = 0;
         registerVars = {};
+		registerMap = {};
 
         VAR_REGISTER = newproxy(false);
         RETURN_ALL = newproxy(false);
