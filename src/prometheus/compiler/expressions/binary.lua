@@ -16,7 +16,7 @@ return function(self, expression, funcDepth, numReturns)
             local rhsReg = self:compileExpression(expression.rhs, funcDepth, 1)[1];
 
             local binaryExpr = self:mutateBinary(expression.kind, self:register(scope,lhsReg), self:register(scope,rhsReg))
-            self:addStatement(self:setRegister(scope, regs[i], binaryExpr), {regs[i]}, {lhsReg, rhsReg}, true);
+            self:addStatement(self:setRegister(...), {regs[i]}, {lhsReg,rhsReg,self:getFakeRegister()}, true)
             self:freeRegister(rhsReg, false);
             self:freeRegister(lhsReg, false);
         else
