@@ -7,7 +7,7 @@
 local Ast = require("prometheus.ast");
 local Scope = require("prometheus.scope");
 local util = require("prometheus.util");
-
+local bit = bit or require("bit32")
 local lookupify = util.lookupify;
 local AstKind = Ast.AstKind;
 
