@@ -321,6 +321,33 @@ function Compiler:compile(ast)
     }, psc), newGlobalScope);
 end
 
+function Compiler:mutateBinary(kind,lhs,rhs)
+    if kind == AstKind.AddExpression then
+        local r = math.random(1,3)
+
+        if r == 1 then
+            return Ast.AddExpression(lhs,rhs)
+
+        elseif r == 2 then
+            return Ast.SubExpression(
+                lhs,
+                Ast.NegateExpression(rhs)
+            )
+
+        else
+            return Ast.DivExpression(
+                Ast.AddExpression(
+                    Ast.MulExpression(lhs,Ast.NumberExpression(2)),
+                    Ast.MulExpression(rhs,Ast.NumberExpression(2))
+                ),
+                Ast.NumberExpression(2)
+            )
+        end
+    end
+
+    return Ast[kind](lhs,rhs)
+end
+
 function Compiler:getFakeRegister()
     if #self.fakeRegisters == 0 then
 
