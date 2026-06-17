@@ -57,7 +57,20 @@ function Compiler:new()
 
     setmetatable(compiler, self);
     self.__index = self;
+	
+    compiler.registerMap = {}
 
+    local regs = {}
+    for i = 1, MAX_REGS do
+        regs[i] = i
+    end
+
+    util.shuffle(regs)
+
+    for i = 1, MAX_REGS do
+        compiler.registerMap[i] = regs[i]
+    end
+	
     return compiler;
 end
 
