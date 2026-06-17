@@ -11,9 +11,10 @@ local lookupify = util.lookupify;
 
 return function(Compiler)
     function Compiler:createBlock()
+		self.blockKey = math.random(1,2^24)
         local id;
         repeat
-            id = math.random(0, 2^24)
+            id = bit.bxor(id,self.blockKey)
         until not self.usedBlockIds[id];
         self.usedBlockIds[id] = true;
 
