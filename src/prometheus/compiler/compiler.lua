@@ -18,9 +18,7 @@ local registerModule = require("prometheus.compiler.register");
 local upvalueModule = require("prometheus.compiler.upvalue");
 local emitModule = require("prometheus.compiler.emit");
 local compileCoreModule = require("prometheus.compiler.compile_core");
-local constants = require("prometheus.compiler.constants");
 
-local MAX_REGS = constants.MAX_REGS;
 local Compiler = {};
 
 function Compiler:new()
@@ -60,19 +58,6 @@ function Compiler:new()
 
     setmetatable(compiler, self);
     self.__index = self;
-	
-    compiler.registerMap = {}
-
-    local regs = {}
-    for i = 1, MAX_REGS do
-        regs[i] = i
-    end
-
-    util.shuffle(regs)
-
-    for i = 1, MAX_REGS do
-        compiler.registerMap[i] = regs[i]
-    end
 	
     return compiler;
 end
